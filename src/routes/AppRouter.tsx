@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Home } from '../pages/Home';
+import Login from '../pages/Login';
 import { MarkdownEditor } from "../pages/MarkdownEditor";
-//import PrivateRoute from "./PrivateRouter";
+import PrivateRoute from "./PrivateRouter";
 
 const AppRouter = () => {
   return (
@@ -9,19 +10,24 @@ const AppRouter = () => {
 
         <Router>
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/markdown" element={<MarkdownEditor />} />
-
-                {/* <Route
-                    path="/dashboard"
-                    element={
-                        <PrivateRoute>
+                <Route path="/" element={<Login />} />
+                <Route
+                path="/dashboard"
+                element={
+                    <PrivateRoute>
                         <Home />
-                        </PrivateRoute>
-                    }
-                /> */}
+                    </PrivateRoute>
+                }
+                />
 
-                {/* <Route path="*" element={<NotFound />} /> */}
+                <Route 
+                path="/dashboard/edit" 
+                element={
+                    <PrivateRoute>
+                        <MarkdownEditor />
+                    </PrivateRoute>
+                }
+                />
             </Routes>
         </Router>
     </div>
