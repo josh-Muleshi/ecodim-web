@@ -1,1 +1,39 @@
 @import "tailwindcss";
+
+
+.markdown h1, .markdown h2, .markdown h3, .markdown p, .markdown ul, .markdown ol {
+    all: unset;
+    display: block;
+  }
+  
+  .markdown h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .markdown h2 {
+    font-size: 1.75rem;
+    font-weight: semibold;
+    margin-bottom: 1rem;
+  }
+  
+  .markdown ul, .markdown ol {
+    padding-left: 1.5rem;
+  }
+  
+  .markdown li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .markdown strong {
+    font-weight: bold;
+  }
+  
+  .markdown em {
+    font-style: italic;
+  }
+  
+  .markdown-preview {
+    text-align: left;
+  }
