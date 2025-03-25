@@ -37,7 +37,7 @@ const LessonDetail: React.FC = () => {
     if (!id) return;
     await deleteDoc(doc(db, "lesson", id));
     alert("Lesson deleted successfully!");
-    navigate("/");
+    navigate("/dashboard");
   };
 
   const handleUpdate = async () => {

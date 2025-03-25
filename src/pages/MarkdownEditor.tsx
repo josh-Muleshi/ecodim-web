@@ -4,9 +4,11 @@ import Footer from '../components/Footer';
 import { MarkdownInput, MarkdownPreview } from '../components/Markdown';
 import { db, auth } from '../services/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 const MarkdownEditor: React.FC = () => {
   const [markdown, setMarkdown] = useState<string>("");
+  const navigate = useNavigate();
 
   const handleSave = async () => {
     if (!auth.currentUser) {
@@ -21,6 +23,7 @@ const MarkdownEditor: React.FC = () => {
         userId: auth.currentUser.uid,
       });
       alert("Lesson saved successfully!");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Error saving lesson:", error);
     }
