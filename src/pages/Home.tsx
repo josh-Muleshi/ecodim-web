@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import Navbar from '../components/NavBar';
 import Footer from '../components/Footer';
 import { customMarkdownComponents } from '../components/Markdown';
+import { Link } from 'react-router-dom';
 
 interface Lesson {
   id: string;
@@ -34,11 +35,13 @@ const Home: React.FC = () => {
       <Navbar />
       <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {lessons.map((lesson) => (
-          <div key={lesson.id} className="border border-gray-300 rounded-md p-4 bg-white shadow-md">
+          <Link to={`/dashboard/detail/${lesson.id}`} key={lesson.id}>
+          <div className="border border-gray-300 rounded-md p-4 bg-white shadow-md cursor-pointer hover:bg-gray-100">
             <div className="text-gray-700 line-clamp-3">
               <ReactMarkdown components={customMarkdownComponents}>{lesson.content}</ReactMarkdown>
             </div>
           </div>
+          </Link>
         ))}
       </div>
       <Footer />
@@ -47,6 +50,3 @@ const Home: React.FC = () => {
 };
 
 export default Home;
-
-
-

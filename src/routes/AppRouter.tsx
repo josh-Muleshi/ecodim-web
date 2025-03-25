@@ -4,6 +4,7 @@ import Login from '../pages/Login';
 import MarkdownEditor from "../pages/MarkdownEditor";
 import PrivateRoute from "./PrivateRouter";
 import NotFound from "../pages/NotFound";
+import LessonDetail from "../pages/LessonDetail";
 
 const AppRouter = () => {
     return (
@@ -28,6 +29,15 @@ const AppRouter = () => {
                             <MarkdownEditor />
                         </PrivateRoute>
                     }
+                    />
+
+                    <Route 
+                    path="/dashboard/detail/:id" 
+                    element={
+                        <PrivateRoute>
+                            <LessonDetail />
+                        </PrivateRoute>
+                    } 
                     />
 
                     <Route path="*" element={<NotFound />} />
