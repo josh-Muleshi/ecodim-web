@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import Navbar from '../components/NavBar';
 import Footer from '../components/Footer';
 import { customMarkdownComponents } from '../components/Markdown';
+import Loading from '../components/Loading';
 
 interface Lesson {
   id: string;
@@ -48,52 +49,61 @@ const LessonDetail: React.FC = () => {
     alert("Lesson updated successfully!");
   };
 
-  if (!lesson) return <p>Loading...</p>;
+  if (!lesson) return <Loading />;
 
   return (
     <div className="max-w-full mx-auto">
-        <Navbar />
-        <div className="p-6 flex justify-center items-center min-h-screen">
-            <div className="w-full max-w-4xl bg-white">
-                {isEditing ? (
-                <textarea 
-                    value={newContent} 
-                    onChange={(e) => setNewContent(e.target.value)}
-                    className="w-full h-screen p-4 border border-gray-300 rounded-lg text-lg resize-none overflow-hidden"
-                />
-                ) : (
-                <div className="border border-gray-300 p-8 rounded-lg text-lg leading-relaxed">
-                    <ReactMarkdown components={customMarkdownComponents}>{lesson.content}</ReactMarkdown>
-                </div>
-                )}
+      <Navbar />
 
-                <div className="mt-8 flex justify-center space-x-8">
-                {isEditing ? (
-                    <button 
-                    onClick={handleUpdate} 
-                    className="px-5 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 text-lg"
-                    >
-                    Save
-                    </button>
-                ) : (
-                    <button 
-                    onClick={() => setIsEditing(true)} 
-                    className="px-5 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 text-lg"
-                    >
-                    Edit
-                    </button>
-                )}
-
-                <button 
-                    onClick={handleDelete} 
-                    className="px-5 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 text-lg"
-                >
-                    Delete
-                </button>
-                </div>
-            </div>
+      <div className="p-6 justify-center items-center">
+      {isEditing && (
+        <div className="p-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <textarea 
+            value={newContent} 
+            onChange={(e) => setNewContent(e.target.value)}
+            className="w-full min-h-[200px] max-h-full p-2 border border-gray-300 rounded-md overflow-hidden resize-none"
+          />
+          <div className="w-full h-full overflow-auto p-4 border border-gray-300 rounded-md bg-white">
+            <ReactMarkdown components={customMarkdownComponents}>{newContent}</ReactMarkdown>
+          </div>
         </div>
-        <Footer />
+      )}
+
+      {!isEditing && (
+        <div className="flex justify-center items-center">
+          <div className="w-full max-w-4xl text-lg ">
+            <ReactMarkdown components={customMarkdownComponents}>{lesson.content}</ReactMarkdown>
+          </div>
+        </div>
+      )}
+
+      <div className="mt-8 flex justify-center space-x-8">
+        {isEditing ? (
+          <button 
+            onClick={handleUpdate} 
+            className="px-5 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 text-lg"
+          >
+            Save
+          </button>
+        ) : (
+          <button 
+            onClick={() => setIsEditing(true)} 
+            className="px-5 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 text-lg"
+          >
+            Edit
+          </button>
+        )}
+
+        <button 
+          onClick={handleDelete} 
+          className="px-5 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 text-lg"
+        >
+          Delete
+        </button>
+      </div>
+
+      </div>
+      <Footer />
     </div>
   );
 };
