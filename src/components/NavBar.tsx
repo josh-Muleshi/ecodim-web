@@ -15,7 +15,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
+    <nav className="bg-orange-400 text-white p-4 flex justify-between items-center">
       <h1 className="text-xl font-bold">Ecodim</h1>
       <div className="space-x-4">
         <Link to="/dashboard" className="hover:underline">Accueil</Link>
