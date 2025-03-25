@@ -63,4 +63,4 @@ const customMarkdownComponents: object = {
   td: (props: any) => <td className="border-b px-4 py-2" {...props} />,
 };
 
-export { MarkdownInput, MarkdownPreview }
+export { MarkdownInput, MarkdownPreview, customMarkdownComponents }
