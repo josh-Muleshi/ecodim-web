@@ -3,6 +3,7 @@ import Home from '../pages/Home';
 import Login from '../pages/Login';
 import MarkdownEditor from "../pages/MarkdownEditor";
 import PrivateRoute from "./PrivateRouter";
+import NotFound from "../pages/NotFound";
 
 const AppRouter = () => {
     return (
@@ -28,6 +29,8 @@ const AppRouter = () => {
                         </PrivateRoute>
                     }
                     />
+
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </Router>
         </>
