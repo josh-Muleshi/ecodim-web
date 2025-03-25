@@ -19,7 +19,7 @@ const Navbar = () => {
       <h1 className="text-xl font-bold">Ecodim</h1>
       <div className="space-x-4">
         <Link to="/dashboard" className="hover:underline">Accueil</Link>
-        <Link to="/dashboard/postItem" className="hover:underline">Ajouter une Lecon</Link>
+        <Link to="/dashboard/edit" className="hover:underline">Ajouter une Lecon</Link>
         <button onClick={handleLogout} className="hover:underline bg-transparent border-none text-white cursor-pointer">
           Déconnexion
         </button>
