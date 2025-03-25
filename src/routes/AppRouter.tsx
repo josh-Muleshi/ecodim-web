@@ -5,33 +5,33 @@ import { MarkdownEditor } from "../pages/MarkdownEditor";
 import PrivateRoute from "./PrivateRouter";
 
 const AppRouter = () => {
-  return (
-    <div className="p-4 text-center">
+    return (
+        <>
+            <Router>
+                <Routes>
+                    <Route path="/" element={<Login />} />
 
-        <Router>
-            <Routes>
-                <Route path="/" element={<Login />} />
-                <Route
-                path="/dashboard"
-                element={
-                    <PrivateRoute>
-                        <Home />
-                    </PrivateRoute>
-                }
-                />
+                    <Route
+                    path="/dashboard"
+                    element={
+                        <PrivateRoute>
+                            <Home />
+                        </PrivateRoute>
+                    }
+                    />
 
-                <Route 
-                path="/dashboard/edit" 
-                element={
-                    <PrivateRoute>
-                        <MarkdownEditor />
-                    </PrivateRoute>
-                }
-                />
-            </Routes>
-        </Router>
-    </div>
-  );
+                    <Route 
+                    path="/dashboard/edit" 
+                    element={
+                        <PrivateRoute>
+                            <MarkdownEditor />
+                        </PrivateRoute>
+                    }
+                    />
+                </Routes>
+            </Router>
+        </>
+    );
 };
 
 export default AppRouter;
