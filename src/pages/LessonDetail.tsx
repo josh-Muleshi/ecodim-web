@@ -52,46 +52,48 @@ const LessonDetail: React.FC = () => {
 
   return (
     <div className="max-w-full mx-auto">
-      <Navbar />
-      <div className="p-6">
-        {isEditing ? (
-          <textarea 
-            value={newContent} 
-            onChange={(e) => setNewContent(e.target.value)}
-            className="w-full min-h-[200px] p-2 border border-gray-300 rounded-md"
-          />
-        ) : (
-          <div className="border border-gray-300 p-4 bg-white rounded-md">
-            <ReactMarkdown components={customMarkdownComponents}>{lesson.content}</ReactMarkdown>
-          </div>
-        )}
+        <Navbar />
+        <div className="p-6 flex justify-center items-center min-h-screen">
+            <div className="w-full max-w-4xl bg-white">
+                {isEditing ? (
+                <textarea 
+                    value={newContent} 
+                    onChange={(e) => setNewContent(e.target.value)}
+                    className="w-full h-screen p-4 border border-gray-300 rounded-lg text-lg resize-none overflow-hidden"
+                />
+                ) : (
+                <div className="border border-gray-300 p-8 rounded-lg text-lg leading-relaxed">
+                    <ReactMarkdown components={customMarkdownComponents}>{lesson.content}</ReactMarkdown>
+                </div>
+                )}
 
-        <div className="mt-4 flex space-x-4">
-          {isEditing ? (
-            <button 
-              onClick={handleUpdate} 
-              className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
-            >
-              Save
-            </button>
-          ) : (
-            <button 
-              onClick={() => setIsEditing(true)} 
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-            >
-              Edit
-            </button>
-          )}
-          
-          <button 
-            onClick={handleDelete} 
-            className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-          >
-            Delete
-          </button>
+                <div className="mt-8 flex justify-center space-x-8">
+                {isEditing ? (
+                    <button 
+                    onClick={handleUpdate} 
+                    className="px-5 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 text-lg"
+                    >
+                    Save
+                    </button>
+                ) : (
+                    <button 
+                    onClick={() => setIsEditing(true)} 
+                    className="px-5 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 text-lg"
+                    >
+                    Edit
+                    </button>
+                )}
+
+                <button 
+                    onClick={handleDelete} 
+                    className="px-5 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 text-lg"
+                >
+                    Delete
+                </button>
+                </div>
+            </div>
         </div>
-      </div>
-      <Footer />
+        <Footer />
     </div>
   );
 };
