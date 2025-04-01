@@ -5,6 +5,7 @@ import { MarkdownInput, MarkdownPreview } from '../components/Markdown';
 import { db, auth } from '../services/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import { doc, setDoc } from "firebase/firestore";
 
 const MarkdownEditor: React.FC = () => {
   const [markdown, setMarkdown] = useState<string>("");
@@ -17,7 +18,10 @@ const MarkdownEditor: React.FC = () => {
     }
 
     try {
-      await addDoc(collection(db, "lesson"), {
+      const lessonRef = doc(collection(db, "lesson"));
+      const lessonId = lessonRef.id; 
+      await setDoc(lessonRef, {
+        uid: lessonId, 
         content: markdown,
         createdAt: serverTimestamp(),
         userId: auth.currentUser.uid,
