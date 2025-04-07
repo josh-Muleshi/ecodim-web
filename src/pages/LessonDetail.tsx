@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { db } from '../services/firebase';
-import { doc, getDoc, deleteDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, deleteDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
 import ReactMarkdown from 'react-markdown';
 import Navbar from '../components/NavBar';
 import Footer from '../components/Footer';
@@ -43,7 +43,13 @@ const LessonDetail: React.FC = () => {
 
   const handleUpdate = async () => {
     if (!id || !newContent.trim()) return;
-    await updateDoc(doc(db, "lesson", id), { content: newContent });
+    
+    const updatedData = {
+      content: newContent,
+      updatedAt: serverTimestamp(), // Mise à jour du champ updatedAt
+    };
+
+    await updateDoc(doc(db, "lesson", id), updatedData);
     setLesson((prev) => prev ? { ...prev, content: newContent } : null);
     setIsEditing(false);
     alert("Lesson updated successfully!");
@@ -109,3 +115,4 @@ const LessonDetail: React.FC = () => {
 };
 
 export default LessonDetail;
+

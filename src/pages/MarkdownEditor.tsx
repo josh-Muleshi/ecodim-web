@@ -3,7 +3,7 @@ import Navbar from '../components/NavBar';
 import Footer from '../components/Footer';
 import { MarkdownInput, MarkdownPreview } from '../components/Markdown';
 import { db, auth } from '../services/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, serverTimestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { doc, setDoc } from "firebase/firestore";
 
@@ -19,13 +19,17 @@ const MarkdownEditor: React.FC = () => {
 
     try {
       const lessonRef = doc(collection(db, "lesson"));
-      const lessonId = lessonRef.id; 
+      const lessonId = lessonRef.id;
+      const timestamp = serverTimestamp(); // Utilisation du même timestamp pour createdAt et updatedAt
+
       await setDoc(lessonRef, {
         uid: lessonId, 
         content: markdown,
-        createdAt: serverTimestamp(),
+        createdAt: timestamp,
+        updatedAt: timestamp,  // Ajout du champ updatedAt
         userId: auth.currentUser.uid,
       });
+      
       alert("Lesson saved successfully!");
       navigate("/dashboard");
     } catch (error) {
