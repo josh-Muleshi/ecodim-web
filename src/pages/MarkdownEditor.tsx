@@ -3,12 +3,12 @@ import Navbar from '../components/NavBar';
 import Footer from '../components/Footer';
 import { MarkdownInput, MarkdownPreview } from '../components/Markdown';
 import { db, auth } from '../services/firebase';
-import { collection, serverTimestamp } from 'firebase/firestore';
+import { collection, serverTimestamp, doc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-import { doc, setDoc } from "firebase/firestore";
 
 const MarkdownEditor: React.FC = () => {
   const [markdown, setMarkdown] = useState<string>("");
+  const [week, setWeek] = useState<boolean>(false); // ✅ État pour le switch
   const navigate = useNavigate();
 
   const handleSave = async () => {
@@ -20,16 +20,17 @@ const MarkdownEditor: React.FC = () => {
     try {
       const lessonRef = doc(collection(db, "lesson"));
       const lessonId = lessonRef.id;
-      const timestamp = serverTimestamp(); // Utilisation du même timestamp pour createdAt et updatedAt
+      const timestamp = serverTimestamp();
 
       await setDoc(lessonRef, {
         uid: lessonId, 
         content: markdown,
         createdAt: timestamp,
-        updatedAt: timestamp,  // Ajout du champ updatedAt
+        updatedAt: timestamp,
         userId: auth.currentUser.uid,
+        week: week, // ✅ Sauvegarde de la valeur du switch
       });
-      
+
       alert("Lesson saved successfully!");
       navigate("/dashboard");
     } catch (error) {
@@ -40,10 +41,37 @@ const MarkdownEditor: React.FC = () => {
   return (
     <div className="max-w-full mx-auto">
       <Navbar />
+      
       <div className="p-2 grid grid-cols-1 md:grid-cols-2 gap-6">
         <MarkdownInput markdown={markdown} setMarkdown={setMarkdown} />
         <MarkdownPreview markdown={markdown} />
       </div>
+
+      {/* ✅ Switch visuel */}
+      <div className="flex justify-center items-center gap-4 p-4">
+        <label htmlFor="weekToggle" className="font-medium text-gray-700">Semaine active :</label>
+
+        <label htmlFor="weekToggle" className="relative inline-block w-12 h-6 cursor-pointer">
+          <input
+            id="weekToggle"
+            type="checkbox"
+            checked={week}
+            onChange={(e) => setWeek(e.target.checked)}
+            className="sr-only"
+          />
+          <div className={`w-full h-full rounded-full transition-colors duration-300 ${week ? "bg-green-500" : "bg-gray-400"}`}></div>
+          <div
+            className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300 ${
+              week ? "translate-x-6" : ""
+            }`}
+          />
+        </label>
+
+        <span className="ml-2 text-sm font-medium text-gray-700">
+          {week ? "Oui" : "Non"}
+        </span>
+      </div>
+
       <div className="flex justify-center p-4">
         <button 
           onClick={handleSave}
@@ -52,6 +80,7 @@ const MarkdownEditor: React.FC = () => {
           Save
         </button>
       </div>
+
       <Footer />
     </div>
   );
