@@ -24,8 +24,8 @@ dist-ssr
 *.sw?
 
 # Ignorer les fichiers d'environnement
-.env
-.env.local
-.env.development
-.env.production
-.env.test
+# .env
+# .env.local
+# .env.development
+# .env.production
+# .env.test
