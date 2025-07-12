@@ -3,13 +3,13 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_APP_ID,
-  measurementId: import.meta.env.VITE_MEASUREMENT_ID
+  apiKey: "AIzaSyD_MwSsCeJpZOGmBSZ-nqQk5Cq0MtR7r7Q",
+  authDomain: "ecodim-b3dd0.firebaseapp.com",
+  projectId: "ecodim-b3dd0",
+  storageBucket: "ecodim-b3dd0.appspot.com",
+  messagingSenderId: "52205911313",
+  appId: "1:52205911313:web:3f9fd1df02c7f457a220b0",
+  measurementId: "G-M6BB6PQSHQ"
 };
 
 // Initialisation de Firebase
@@ -18,4 +18,3 @@ const app = initializeApp(firebaseConfig);
 // Initialisation de l'authentification Firebase
 export const auth = getAuth(app);
 export const db = getFirestore(app);
-
